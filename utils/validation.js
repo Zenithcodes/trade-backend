@@ -18,7 +18,7 @@ const usersValidator = Joi.object().keys({
     mpin:Joi.string().length(4).required()
 })
 
-const mobileNumberValidator = /^(\+91[\-\s]?)?[0]?[789]\d{9}$/
+const mobileNumberValidator = /^(\+91[\-\s]?)?[0]?[6789]\d{9}$/
 
 module.exports={
     suggestionsValidator,

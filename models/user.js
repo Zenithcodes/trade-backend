@@ -22,13 +22,7 @@ const userSchema = new Schema({
     plan:{
         type: 'string',
         required:true
-    },
-    role:{
-        type:"string",
-        required:true,
-        enum:["admin","user"],
-        default:"user"
-    },
+    }
 })
 
 const User = mongoose.model('user',userSchema)

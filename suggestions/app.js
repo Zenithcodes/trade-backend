@@ -2,6 +2,7 @@ const  {init} = require("../middleware/db");
 const  {getSuggestionsModel} =require( "../models");
 const { suggestionsValidator } =require( "../utils/validation");
 const {badRequestResponse,unAuthorizedResponse} =require('../utils/constants')
+const {extractToken,verifyToken} = require('../middleware/auth')
 
 const validate = (data) => {
   const { stopLoss, buyPrice, targetPrice } = data;
@@ -45,11 +46,11 @@ const getDateFilters=(start,end,type)=>{
     }
 }
 let response
-exports.lambdaHandler =async (event,context)=> {
-    console.log(event)
-    const {headers,httpMethod,queryStringParameters,body} = event
-  try {
-    if (true) {
+exports.lambdaHandler =async (event,context)=> {  try {
+  const {headers,httpMethod,queryStringParameters,body} = event
+    const token =extractToken(headers);
+    const decoded = verifyToken(token)
+    if (decoded?.isValid) {
       await init();
       const type = headers.Type;
       if (type) {
@@ -73,7 +74,6 @@ exports.lambdaHandler =async (event,context)=> {
               video,
               description,
             });
-            console.log(error)
             if (!error) {
               const isSuggestionExist = await model.findOne({
                 name,
@@ -113,7 +113,6 @@ exports.lambdaHandler =async (event,context)=> {
             const { name: stockName, status,start,end } = queryStringParameters || {};
             const statusFilter = getStatus(status);
             const {startDate,endDate} = getDateFilters(start,end,type)
-            console.log(statusFilter,model,startDate,endDate,stockName)
             if (stockName) {
               const result = await model.find({
                 name: stockName,
