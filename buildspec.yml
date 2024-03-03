@@ -5,7 +5,7 @@ phases:
         nodejs: 18
   build:
     commands:
-      - npm ci
+      - npm run build
       - export BUCKET=<OUTPUT BUCKET>     
 artifacts:
   type: zip
