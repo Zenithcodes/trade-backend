@@ -1,0 +1,14 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+        nodejs: 12
+  build:
+    commands:
+      - npm ci
+      - export BUCKET=<OUTPUT BUCKET>     
+artifacts:
+  type: zip
+  files:
+    - template.yml
+    - outputtemplate.yml
