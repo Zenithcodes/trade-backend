@@ -1,14 +1,20 @@
 version: 0.2
+ 
 phases:
   install:
     runtime-versions:
         nodejs: 18
+    commands:
+        - echo Installing dependencies...
+        - npm install
+ 
   build:
     commands:
-      - npm run build
-      - export BUCKET=<OUTPUT BUCKET>     
+        - echo Build started on `date`
+        - echo Compiling the Node.js code...
+        - npm ci
+ 
 artifacts:
-  type: zip
   files:
-    - template.yml
-    - outputtemplate.yml
+    - '**/*'
+  discard-paths: yes
