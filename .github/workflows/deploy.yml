@@ -20,8 +20,9 @@ jobs:
 
       - name: Install SAM CLI
         run: |
-          curl -L -o install-aws-cli.sh https://raw.githubusercontent.com/unfor19/install-aws-cli-action/master/entrypoint.sh && \chmod +x /tmp/install-aws-cli.sh
-          
+          curl -L -o install-aws-cli.sh https://raw.githubusercontent.com/unfor19/install-aws-cli-action/master/entrypoint.sh && \
+          chmod +x /tmp/install-aws-cli.sh
+
       - name: Build and Deploy SAM Application
         run: |
           sam validate
