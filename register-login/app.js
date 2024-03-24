@@ -1,4 +1,4 @@
-const { init } = require("../middleware/db");
+const  {handler}  = require("../middleware/db");
 const { otpModel, userModel } = require("../models");
 const { mobileNumberValidator } = require("../utils/validation");
 const { generateOTP, calculateDates, sendSMS } = require("../utils/utils");
@@ -7,7 +7,7 @@ const {signToken,verifyToken,extractToken} = require('../middleware/auth')
 let response;
 exports.lambdaHandler = async (event, context) => {
   try {
-    await init();
+    await handler();
     const { body, httpMethod, queryStringParameters, resource,headers } = event;
     const token = extractToken(headers)
     switch (httpMethod) {
